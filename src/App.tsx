@@ -6,7 +6,6 @@ import { blink } from '@/blink/client'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
-  const [searchQuery, setSearchQuery] = useState('')
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -18,18 +17,8 @@ function App() {
     return unsubscribe
   }, [])
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    if (currentPage !== 'home') {
-      setCurrentPage('home')
-    }
-  }
-
   const handleNavigate = (page: string) => {
     setCurrentPage(page)
-    if (page === 'home') {
-      setSearchQuery('')
-    }
   }
 
   if (loading) {
@@ -48,14 +37,13 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <Header 
-        onSearch={handleSearch}
         onNavigate={handleNavigate}
         currentPage={currentPage}
       />
       
       <main className="min-h-[calc(100vh-4rem)]">
         {currentPage === 'home' && (
-          <HomePage searchQuery={searchQuery} />
+          <HomePage />
         )}
         
         {currentPage === 'dashboard' && user && (

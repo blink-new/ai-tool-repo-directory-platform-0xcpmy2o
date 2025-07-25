@@ -50,9 +50,13 @@ export function RepositoryCard({ repository, onViewDetails, onToggleFavorite, is
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12">
-              <AvatarFallback className="bg-gradient-to-br from-green-500 to-blue-600 text-white font-semibold">
-                <Github className="w-6 h-6" />
-              </AvatarFallback>
+              {repository.image_url ? (
+                <img src={repository.image_url} alt={repository.name} className="w-full h-full object-cover" />
+              ) : (
+                <AvatarFallback className="bg-gradient-to-br from-green-500 to-blue-600 text-white font-semibold">
+                  <Github className="w-6 h-6" />
+                </AvatarFallback>
+              )}
             </Avatar>
             <div>
               <h3 className="font-semibold text-lg leading-tight">{repository.name}</h3>

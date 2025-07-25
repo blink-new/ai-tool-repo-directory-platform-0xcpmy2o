@@ -41,7 +41,7 @@ export function ToolCard({ tool, onViewDetails, onToggleFavorite, isFavorited }:
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <Avatar className="w-12 h-12">
-              <AvatarImage src={tool.logo_url} alt={tool.name} />
+              <AvatarImage src={tool.image_url || tool.logo_url} alt={tool.name} />
               <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-semibold">
                 {tool.name.charAt(0).toUpperCase()}
               </AvatarFallback>

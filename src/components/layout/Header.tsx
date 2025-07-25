@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Search, Plus, User, LogOut, Settings, BookOpen, Wrench } from 'lucide-react'
+import { Plus, User, LogOut, Settings, BookOpen, Wrench } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -14,14 +14,12 @@ import { blink } from '@/blink/client'
 import type { User } from '@/types'
 
 interface HeaderProps {
-  onSearch: (query: string) => void
   onNavigate: (page: string) => void
   currentPage: string
 }
 
-export function Header({ onSearch, onNavigate, currentPage }: HeaderProps) {
+export function Header({ onNavigate, currentPage }: HeaderProps) {
   const [user, setUser] = useState<User | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const unsubscribe = blink.auth.onAuthStateChanged((state) => {
@@ -41,11 +39,6 @@ export function Header({ onSearch, onNavigate, currentPage }: HeaderProps) {
     return unsubscribe
   }, [])
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSearch(searchQuery)
-  }
-
   const handleLogout = () => {
     blink.auth.logout()
   }
@@ -64,18 +57,8 @@ export function Header({ onSearch, onNavigate, currentPage }: HeaderProps) {
           <span className="font-bold text-xl">AI Directory</span>
         </div>
 
-        {/* Search Bar */}
-        <form onSubmit={handleSearch} className="flex-1 max-w-md mx-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="Search AI tools and repositories..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
-          </div>
-        </form>
+        {/* Spacer */}
+        <div className="flex-1" />
 
         {/* Navigation & User Menu */}
         <div className="flex items-center space-x-4">
